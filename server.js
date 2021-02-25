@@ -1,29 +1,17 @@
 const express = require("express");
 const app = express();
+const db = require("./db.js");
 
-app.use(express.static("public"));
+app.use(express.json());
 
-const cities = [
-    {
-        id: 1,
-        name: "Berlin",
-        country: "Germany",
-    },
-    {
-        id: 2,
-        name: "Amsterdam",
-        country: "Netherlands",
-    },
-    {
-        id: 3,
-        name: "Venice",
-        country: "Italy",
-    },
-];
-
-app.get("/cities", (req, res) => {
+app.get("/images", (req, res) => {
+    db.getImages()
+        .then((data) => {
+            console.log("response:", data);
+            res.json(data);
+        })
+        .catch((err) => console.log("error in db.getImages sad puppy 🐶", err));
     console.log("hit the get route!");
-    res.json(cities);
 });
 
 app.listen(8080, () => console.log("IB up and running..."));

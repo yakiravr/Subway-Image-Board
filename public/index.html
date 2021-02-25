@@ -5,24 +5,13 @@
         <link rel="stylesheet" href="/style.css" />
     </head>
     <body>
-        <h1>Is this working?</h1>
+
         <div id="main">
-            <h2 @click="handleClick">I really like {{ name }}</h2>
-            <h2>Maths! 2 * 2 = {{ 2 * 2 }}</h2>
-            <h2>Capitalise {{ name.toUpperCase() }}</h2>
-            <h2 v-if="seen">Can you see me?</h2>
-            <h2 v-else>I am the else</h2>
-            <!-- v-on:click -->
-            <ul>
-                <li
-                    v-for="city in cities"
-                    :key="city.id"
-                    @click="handleClick(city.name)"
-                >
-                    {{ city.name }}, {{ city.country }}
-                </li>
-            </ul>
+            <div v-for="img in images" :key="img.id">
+                <img v-bind:src="img.url=" />{{ title}}</img>
+            </div>
         </div>
+
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="/js/script.js"></script>

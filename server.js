@@ -6,12 +6,11 @@ app.use(express.json());
 
 app.get("/images", (req, res) => {
     db.getImages()
-        .then((data) => {
+        .then(({ data }) => {
             console.log("response:", data);
             res.json(data);
         })
-        .catch((err) => console.log("error in db.getImages sad puppy 🐶", err));
-    console.log("hit the get route!");
+        .catch((err) => console.log("err", err));
 });
 
 app.listen(8080, () => console.log("IB up and running..."));

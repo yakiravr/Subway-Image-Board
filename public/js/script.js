@@ -19,9 +19,9 @@ new Vue({
             });
     },
     methods: {
-        handleClick: function (image) {
-            console.log("handleClick running!!", image);
-            this.seen = !this.seen;
-        },
+        //handleClick: function (image) {
+        //    console.log("handleClick running!!", image);
+        //  this.seen = !this.seen;
+        // },
     },
 });

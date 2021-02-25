@@ -4,3 +4,24 @@ body {
     font-family: cursive;
     font-size: 18px;
 }
+
+.main {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.imagebox {
+    width: 350px;
+    height: 350px;
+    border-top: 4px solid black;
+    border-left: 4px solid black;
+    border-bottom: 4px solid black;
+    border-right: 4px solid black;
+    display: inline-block;
+    margin: 10px;
+    background-color: white;
+    cursor: pointer;
+}

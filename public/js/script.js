@@ -3,7 +3,7 @@ console.log("sanity????");
 new Vue({
     el: "#main",
     data: {
-        name: "Gallery",
+        //name: "Gallery",
         //seen: true,
         images: [],
     },

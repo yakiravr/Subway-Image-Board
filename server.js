@@ -2,13 +2,12 @@ const express = require("express");
 const app = express();
 const db = require("./db.js");
 
-app.use(express.json());
-
+app.use(express.static("public"));
 app.get("/images", (req, res) => {
     db.getImages()
-        .then(({ data }) => {
+        .then(({ rows }) => {
             // console.log("response:", data);
-            res.json(data);
+            res.json(rows);
         })
         .catch((err) => console.log("err", err));
 });

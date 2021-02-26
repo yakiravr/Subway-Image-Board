@@ -6,12 +6,16 @@
     </head>
     <body>
         <div id="main">
-            <div class="imagebox" v-for="image in images" :key="image.id">
-                <img :src="image.url=" :alt="image.description" />
-                <p class="img_description">{{ image.description}}</p>
-            </div>
-        </div>
-
+             <div class="container">
+           <div class="imagespart1" v-for="img in images" 
+            :key="img.id" >
+            <img :src="img.url" :alt="img.description">
+            <p>
+            {{ img.title }}
+            </p>
+        </div> 
+</div>
+        
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="/js/script.js"></script>

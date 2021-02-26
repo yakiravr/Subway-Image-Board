@@ -5,10 +5,10 @@
         <link rel="stylesheet" href="/style.css" />
     </head>
     <body>
-
         <div id="main">
-            <div class="imagebox" v-for="img in images" :key="img.id">
-                <img  :src="image.url=">{{ title}}</img>
+            <div class="imagebox" v-for="image in images" :key="image.id">
+                <img :src="image.url=" :alt="image.description" />
+                <p class="img_description">{{ image.description}}</p>
             </div>
         </div>
 

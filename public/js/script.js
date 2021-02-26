@@ -4,7 +4,7 @@ new Vue({
     el: "#main",
     data: {
         name: "Gallery",
-        seen: true,
+        //seen: true,
         images: [],
     },
     mounted: function () {

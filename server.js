@@ -7,7 +7,7 @@ app.use(express.json());
 app.get("/images", (req, res) => {
     db.getImages()
         .then(({ data }) => {
-            console.log("response:", data);
+            // console.log("response:", data);
             res.json(data);
         })
         .catch((err) => console.log("err", err));

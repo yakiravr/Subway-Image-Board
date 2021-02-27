@@ -8,7 +8,7 @@ body {
     text-align: center;
 }
 
-.container {
+.containerpart1 {
     margin: 10px;
     display: flex;
     flex-direction: row;
@@ -17,8 +17,8 @@ body {
 }
 
 .imagespart1 {
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
     border-top: 5px solid black;
     border-left: 5px solid black;
     border-bottom: 5px solid black;
@@ -28,6 +28,6 @@ body {
 }
 
 img {
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
 }

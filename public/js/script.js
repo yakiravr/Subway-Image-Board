@@ -1,11 +1,13 @@
-console.log("sanity????");
+console.log("my script file not class one");
 
 new Vue({
     el: "#main",
     data: {
-        //name: "Gallery",
-        //seen: true,
         images: [],
+        title: "",
+        description: "",
+        username: "",
+        file: null,
     },
     mounted: function () {
         var self = this;
@@ -15,13 +17,30 @@ new Vue({
                 self.images = response.data;
             })
             .catch(function (err) {
-                console.log("error in axios", err);
+                console.log("Error in fetching images:", err);
             });
     },
     methods: {
-        //handleClick: function (image) {
-        //    console.log("handleClick running!!", image);
-        //  this.seen = !this.seen;
-        // },
+        handleClick: function () {
+            var formData = new FormData();
+            formData.append("title", this.title);
+            formData.append("description", this.description);
+            formData.append("username", this.username);
+            formData.append("file", this.file);
+            console.log("title is:", this.title);
+            console.log("username is:", this.username);
+            axios
+                .post("/upload", formData)
+                .then((response) => {
+                    this.images.unshift(response.data.addImage);
+                })
+                .catch((err) => {
+                    console.log("error from POST req is: ", err);
+                });
+        },
+        handleChange: function (e) {
+            console.log("handle change is runnign");
+            this.file = e.target.files[0];
+        },
     },
 });

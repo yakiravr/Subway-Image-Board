@@ -1,6 +1,29 @@
 const express = require("express");
 const app = express();
 const db = require("./db.js");
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const path = require("path");
+const s3 = require("./s3");
+const config = require("./config");
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
 
 app.use(express.static("public"));
 app.get("/images", (req, res) => {
@@ -10,6 +33,25 @@ app.get("/images", (req, res) => {
             res.json(rows);
         })
         .catch((err) => console.log("err", err));
+});
+
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    console.log("upload file");
+    if (req.file) {
+        const { title, username, description } = req.body;
+        const { filename } = req.file;
+        const url = config.s3Url + filename;
+        db.addImages(url, title, username, description).then(({ rows }) => {
+            res.json({
+                success: true,
+                addImage: rows[0],
+            });
+        });
+    } else {
+        res.json({
+            success: false,
+        });
+    }
 });
 
 app.listen(8080, () => console.log("IB up and running..."));

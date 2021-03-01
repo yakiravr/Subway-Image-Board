@@ -26,13 +26,29 @@ const uploader = multer({
 });
 
 app.use(express.static("public"));
+
 app.get("/images", (req, res) => {
     db.getImages()
         .then(({ rows }) => {
-            // console.log("response:", data);
             res.json(rows);
         })
-        .catch((err) => console.log("err", err));
+        .catch((err) => {
+            console.log("err in get images", err);
+        });
+});
+
+app.get("/closeImage/:id", (req, res) => {
+    console.log("req.params", req.params);
+    let id = req.params.id;
+    db.dynamicRouteSingleImage(id)
+        .then(({ rows }) => {
+            res.json({
+                image: rows[0],
+            });
+        })
+        .catch((err) => {
+            console.log("err in dynamic route");
+        });
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
@@ -41,10 +57,10 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         const { title, username, description } = req.body;
         const { filename } = req.file;
         const url = config.s3Url + filename;
-        db.addImages(url, title, username, description).then(({ rows }) => {
+        db.addImage(url, title, username, description).then(({ rows }) => {
             res.json({
                 success: true,
-                addImage: rows[0],
+                image: rows[0],
             });
         });
     } else {

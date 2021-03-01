@@ -1,53 +1,89 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Imageboard</title>
         <link rel="stylesheet" href="/style.css" />
+        <title>Imageboard</title>
     </head>
     <body class="center">
+        <h1>Imageboard</h1>
 
+        <div id="main">
+            <!-- component -->
+            <modal-image
+                v-if="openimg"
+                :image-id="openimg"
+                @close_model="closeComponent"
+            ></modal-image>
 
+            <!-- uploading -->
 
-        <div id="main">  
-            <!--VUE COMPONENT start--> 
-   
-            <!--VUE COMPONENT end--> 
+            <form>
+                <input
+                    v-model="title"
+                    type="text"
+                    name="title"
+                    placeholder="title"
+                />
+                <input
+                    v-model="description"
+                    type="text"
+                    name="description"
+                    placeholder="description"
+                />
+                <input
+                    v-model="username"
+                    type="text"
+                    name="username"
+                    placeholder="username"
+                />
+                <input
+                    @change="handleChange"
+                    type="file"
+                    name="file"
+                    accept="image/*"
+                />
 
+                <button @click.prevent="handleClick">Submit</button>
+            </form>
 
-<!-- upload-->
-   <form>
-         <div>
-        <input v-model="title" type="text" name="title" placeholder="Title">
-        <input v-model="description" type="text" name="description" placeholder="Description">
-        <input v-model="username" type="text" name="username" placeholder="Username">
-</div>
+            <!-- BOARD -->
+            <div class="imagebox">
+                <div
+                    class="card"
+                    v-for="image in images"
+                    :key="image.id"
+                    @click=" clickOnImage(image.id)"
+                >
+                    <img v-bind:src="image.url" alt="image.description" />
 
-<div class="file-submit">
-        <input @change="handleChange" type="file" name="file" accept="image/*">
-        <button @click.prevent="handleClick" id="submit-main">Submit</button>
+                    <h4>{{image.title}}</h4>
+                </div>
+            </div>
         </div>
-    </form>
 
-          <!-- board -->
-           <div class="grid-container">
-           <div  v-for="img in images" 
-            :key="img.id" >
-            <img :src="img.url" :alt="img.title">
-           
-            {{ img.title }}
-        
-        </div> 
-</div>
+        <!-- MODAL -->
+        <script id="modal-image-template" type="text/x-template">
 
-<!-- end of main/start of modal -->
-
-    
-<!-- end of modal-->
+            <div class="modal-container">
+                <h2 @click="notifyParentToDoSth" class= "x">x</h2>
+                <img :src="url">
 
 
-        
+                <h5>{{description}}</h5>
+                <h5>{{title}}</h5>
+                <h5> uploaded by {{username}} at {{created_at}}</h5>
+                <h4>{{count}}</h4>
+                <button @click="count++" class= "counter"><h3>👍</h3></button>
+
+
+
+                </div>
+            </div>
+        </script>
+
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
+
         <script src="/js/script.js"></script>
     </body>
 </html>

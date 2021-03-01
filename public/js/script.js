@@ -1,5 +1,3 @@
-console.log("my script file not class one");
-
 new Vue({
     el: "#main",
     data: {
@@ -14,7 +12,9 @@ new Vue({
         axios
             .get("/images")
             .then(function (response) {
-                self.images = response.data;
+                self.images = response.data.sort((a, b) => {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
             })
             .catch(function (err) {
                 console.log("Error in fetching images:", err);
@@ -32,7 +32,11 @@ new Vue({
             axios
                 .post("/upload", formData)
                 .then((response) => {
-                    this.images.unshift(response.data.addImage);
+                    console.log(
+                        "response from post req: ",
+                        response.data.addImage
+                    );
+                    self.images.unshift(response.data.addImage);
                 })
                 .catch((err) => {
                     console.log("error from POST req is: ", err);

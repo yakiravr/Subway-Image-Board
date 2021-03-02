@@ -70,4 +70,17 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     }
 });
 
+app.get("/more/:lastId", (req, res) => {
+    const lastId = req.params.lastId;
+    console.log("lastId received from script: ", lastId);
+    db.getMoreImages(lastId)
+        .then(({ rows }) => {
+            // console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("Error getting more images:", err.message);
+        });
+});
+
 app.listen(8080, () => console.log("IB up and running..."));

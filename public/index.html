@@ -59,26 +59,38 @@
                     <h4>{{image.title}}</h4>
                 </div>
             </div>
+
+            <!-- more -->
+
+            <button id="moreBtn" v-if="!lastImg" @click="getMoreImages">
+                MORE
+            </button>
+
+            <!-- more end -->
         </div>
 
         <!-- MODAL -->
         <script id="modal-image-template" type="text/x-template">
 
-            <div class="modal-container">
-                <h2 @click="notifyParentToDoSth" class= "x">x</h2>
-                <img :src="url">
+                        <div class="modal-container">
+                            <h2 @click="notifyParentToDoSth" class= "x">close</h2>
+                            <img :src="url">
 
 
-                <h5>{{description}}</h5>
-                <h5>{{title}}</h5>
-                <h5> uploaded by {{username}} at {{created_at}}</h5>
-                <h4>{{count}}</h4>
-                <button @click="count++" class= "counter"><h3>👍</h3></button>
+                            <h5>{{description}}</h5>
+                            <h5>{{title}}</h5>
+                            <h5> uploaded by {{username}} at {{created_at}}</h5>
+                            <h4>{{count}}</h4>
+                            <button @click="count++" class= "counter"><h3>👍</h3></button>
+                            </div>
+                        </div>
+
+
+            <!-- COMMENTS -->
 
 
 
-                </div>
-            </div>
+            <!-- COMMENTS  -->
         </script>
 
         <script src="/js/vue.js"></script>

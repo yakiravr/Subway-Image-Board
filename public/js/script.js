@@ -43,7 +43,7 @@
             username: "",
             file: null,
             openimg: null,
-            id: this.openimg,
+            lastImg: null,
         },
         mounted: function () {
             var self = this;
@@ -87,6 +87,21 @@
                     .catch((err) => {
                         console.log("error in post req", err);
                     });
+            },
+            getMoreImages: function () {
+                const lastId = this.images[this.images.length - 1].id;
+                var self = this;
+                axios.get("/more/" + lastId).then((response) => {
+                    self.images.push(...response.data);
+
+                    console.log(self.images);
+                    if (
+                        self.images[self.images.length - 1].id ==
+                        response.data[0].lastId
+                    ) {
+                        self.lastImg = true;
+                    }
+                });
             },
         },
     });

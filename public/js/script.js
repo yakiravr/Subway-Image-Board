@@ -3,7 +3,6 @@
         template: "#modal-image-template",
         data: function () {
             return {
-                count: 0,
                 url: "",
                 title: "",
                 description: "",
@@ -30,6 +29,54 @@
         methods: {
             notifyParentToDoSth: function () {
                 this.$emit("close_model");
+            },
+        },
+    });
+
+    Vue.component("modal-comments", {
+        template: "#modal-comments-template",
+        data: function () {
+            return {
+                comments: [],
+                username: "",
+                comment: "",
+            };
+        },
+        props: ["imageId"],
+        mounted: function () {
+            console.log("this.imageId mounted:", this.imageId);
+
+            var self = this;
+            axios
+                .get("/get-comments/" + this.imageId)
+                .then(function (response) {
+                    self.comments = response.data.sort((a, b) => {
+                        return new Date(b.created_at) - new Date(a.created_at);
+                    });
+                })
+                .catch(function (err) {
+                    console.log("error in get comments:", err.message);
+                });
+        },
+        methods: {
+            addComment: function () {
+                console.log("imageId in comment:", this.imageId);
+                var self = this;
+                var commentObj = {
+                    username: this.username,
+                    comment: this.comment,
+                    image_id: this.imageId,
+                };
+                axios
+                    .post("/post-comments/", commentObj)
+                    .then(function (response) {
+                        self.username = response.username;
+                        self.comment = response.comment;
+                        self.comments.unshift(response.data);
+                    })
+                    .catch(function (err) {
+                        console.log("error in post comments:", err.message);
+                    });
             },
         },
     });

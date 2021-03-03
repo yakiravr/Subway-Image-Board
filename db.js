@@ -38,19 +38,22 @@ module.exports.getMoreImages = (id) => {
     return db.query(q, params);
 };
 
-exports.getComments = (id) => {
-    const q = `SELECT username, comment, created_at
-        FROM comments
-        WHERE images_id = $1
-        ORDER BY created_at DESC`;
+module.exports.getComments = (id) => {
+    const q = `
+    SELECT *
+    FROM comments
+    WHERE image_id = $1
+    ORDER BY id DESC
+    `;
     const params = [id];
     return db.query(q, params);
 };
 
-exports.addComments = (username, comment, images_id) => {
-    const q = `INSERT INTO comments (username, comment, images_id)
+module.exports.insertComment = (username, comment, image_id) => {
+    const q = `
+    INSERT INTO comments (username, comment, image_id)
     VALUES ($1, $2, $3)
-    RETURNING *`;
-    const params = [username, comment, images_id];
+    `;
+    const params = [username, comment, image_id];
     return db.query(q, params);
 };

@@ -5,7 +5,7 @@
         <title>Imageboard</title>
     </head>
     <body class="center">
-        <h1>Imageboard</h1>
+        <img src="NYCS_4_destination_sign.gif" id="NYCS_4_destination_sign" />
 
         <div id="main">
             <!-- component -->
@@ -61,37 +61,44 @@
             </div>
 
             <!-- more -->
-
-            <button id="moreBtn" v-if="!lastImg" @click="getMoreImages">
-                MORE
-            </button>
-
+            <div class="moreBtn">
+                <button v-if="!lastImg" @click="getMoreImages">MORE</button>
+            </div>
             <!-- more end -->
         </div>
 
         <!-- MODAL -->
         <script id="modal-image-template" type="text/x-template">
 
-                        <div class="modal-container">
-                            <h2 @click="notifyParentToDoSth" class= "x">close</h2>
-                            <img :src="url">
+            <div class="modal-container">
+                <h2 @click="notifyParentToDoSth" class= "x">close</h2>
+                <img :src="url">
 
 
-                            <h5>{{description}}</h5>
-                            <h5>{{title}}</h5>
-                            <h5> uploaded by {{username}} at {{created_at}}</h5>
-                            <h4>{{count}}</h4>
-                            <button @click="count++" class= "counter"><h3>👍</h3></button>
-                            </div>
-                        </div>
+                <h5>{{description}}</h5>
+                <h5>{{title}}</h5>
+                <h5> uploaded by {{username}} at {{created_at}}</h5>
+               <modal-comments v-bind:image-id="imageId"></modal-comments>
 
-
-            <!-- COMMENTS -->
-
-
-
-            <!-- COMMENTS  -->
+                </div>
+            </div>
         </script>
+
+        <!-- COMMENTS -->
+        <script id="modal-comments-template" type="text/x-template">
+            <div class="modal-commentscCntainer">
+
+                    <h2>Add comment</h2>
+                    <input v-model="username" type="text" name="username" placeholder="name">
+                    <input v-model="comment" type="text" name="comment" placeholder="comment here">
+                    <button id="commentsBtn" @click.prevent="addComment">POST</button>
+
+                <div id="commentsBoard" v-for="comment in comments" id="">
+                    <h3>{{comment.username}}: {{comment.comment}} </h3>
+                </div>
+            </div>
+        </script>
+        <!-- COMMENTS  -->
 
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>

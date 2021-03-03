@@ -1,10 +1,9 @@
-DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS comments CASCADE;
 
 CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
-    images_id INTEGER NOT NULL,
-    comment VARCHAR (255) NOT NULL CHECK (comment <> ''),
-    username VARCHAR(255) NOT NULL,
+    username VARCHAR NOT NULL,
+    comment TEXT NOT NULL CHECK (comment <> ''),
+    image_id INT NOT NULL REFERENCES images(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-

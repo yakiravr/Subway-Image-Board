@@ -153,6 +153,8 @@
             },
             closeComponent: function () {
                 this.openimg = null;
+                history.pushState({}, "#", "/");
+                //window.history.pushState({}, "", url);
             },
 
             handleChange: function (e) {

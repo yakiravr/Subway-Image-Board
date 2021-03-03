@@ -48,13 +48,12 @@
 
             <!-- BOARD -->
             <div class="imagebox">
-                <div
-                    class="card"
-                    v-for="image in images"
-                    :key="image.id"
-                    @click=" clickOnImage(image.id)"
-                >
-                    <img v-bind:src="image.url" alt="image.description" />
+                <div class="card" v-for="image in images" :key="image.id">
+                    <a :href="'#' + image.id"
+                        ><img v-bind:src="image.url" alt="image.description"
+                    /></a>
+
+                    <!--  @click=" clickOnImage(image.id)" -->
 
                     <h4>{{image.title}}</h4>
                 </div>

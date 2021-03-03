@@ -26,6 +26,25 @@
                     console.log("error in axios", err);
                 });
         },
+        watch: {
+            imageId: function () {
+                console.log("watch id");
+                var self = this;
+                axios
+                    .get("/closeImage/" + this.imageId)
+                    .then(function (response) {
+                        self.title = response.data.image.title;
+                        self.description = response.data.image.description;
+                        self.username = response.data.image.username;
+                        self.url = response.data.image.url;
+                        self.created_at = response.data.image.created_at;
+                    })
+                    .catch(function (err) {
+                        console.log("error in axios watch", err);
+                        self.$emit("close_model");
+                    });
+            },
+        },
         methods: {
             notifyParentToDoSth: function () {
                 this.$emit("close_model");
@@ -89,11 +108,15 @@
             description: "",
             username: "",
             file: null,
-            openimg: null,
+            openimg: location.hash.slice(1),
             lastImg: null,
         },
         mounted: function () {
             var self = this;
+            window.addEventListener("hashchange", function () {
+                self.imageId = location.hash.slice(1);
+                self.openimg = self.imageId;
+            });
             axios
                 .get("/images")
                 .then(function (response) {

@@ -38,7 +38,7 @@ app.get("/images", (req, res) => {
         });
 });
 
-app.get("/closeImage/:id", (req, res) => {
+app.get("/images/:id", (req, res) => {
     console.log("req.params", req.params);
     let id = req.params.id;
     db.dynamicRouteSingleImage(id)

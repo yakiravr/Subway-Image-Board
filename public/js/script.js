@@ -14,7 +14,7 @@
         mounted: function () {
             var self = this;
             axios
-                .get("/closeImage/" + this.imageId)
+                .get("/images/" + this.imageId)
                 .then(function (response) {
                     self.title = response.data.image.title;
                     self.description = response.data.image.description;
@@ -31,7 +31,7 @@
                 console.log("watch id");
                 var self = this;
                 axios
-                    .get("/closeImage/" + this.imageId)
+                    .get("/images/" + this.imageId)
                     .then(function (response) {
                         self.title = response.data.image.title;
                         self.description = response.data.image.description;

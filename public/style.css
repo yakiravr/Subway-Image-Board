@@ -2,30 +2,76 @@ body {
     min-height: 100vh;
     width: 100%;
     font-family: Comic Sans MS, Comic Sans, cursive;
-    background-color: rgb(219, 203, 203);
+    background-color: rgb(54, 51, 51);
+}
+#main {
+    display: flex;
+    flex-direction: column;
+}
+.center {
+    text-align: center;
 }
 
-h4,
-h2,
-h5,
+h2 {
+    color: rgb(236, 236, 83);
+}
+
 h3 {
     color: white;
 }
-#main {
-    display: flex;
-    flex-direction: column;
-    z-index: -1;
-}
-.center {
+
+p {
+    color: rgb(236, 236, 83);
+    font-size: 20px;
+
     text-align: center;
+    margin-top: 10px;
 }
 
-#main {
+.file-submit {
+    margin-top: 15px;
+    margin-bottom: 90px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 }
-.center {
-    text-align: center;
+
+.submit {
+    color: rgb(236, 236, 83);
+    background-color: rgb(54, 51, 51);
+    font-size: 1.25em;
+    font-weight: 200;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 200;
+    color: rgb(236, 236, 83);
+    background-color: rgb(54, 51, 51);
+    display: inline-block;
+    margin-right: 20px;
+}
+.inputfile:focus + label,
+.inputfile + label:hover {
+    color: #eed999;
+}
+
+input {
+    background-color: rgb(54, 51, 51);
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid;
+    box-shadow: none;
+    color: rgb(236, 236, 83);
+    font-weight: 300;
+    height: 20px;
 }
 
 #imagebox {
@@ -36,14 +82,14 @@ h3 {
 }
 
 .card {
-    width: 30vw;
     min-width: 100px;
     display: inline-block;
-    background-color: rgb(78, 72, 72);
+    background-color: rgb(54, 51, 51);
     box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.2);
     margin: 15px;
     padding: 20px;
     transition: 0.3s;
+    border: 1px solid rgb(236, 236, 83);
 }
 
 .card:hover {
@@ -79,7 +125,24 @@ h3 {
 }
 
 .moreBtn {
-    min-width: 5px;
+    width: 80px;
+    margin-left: 805px;
+    background-color: rgb(54, 51, 51);
+    color: rgb(236, 236, 83);
+    font-size: 20px;
+}
+
+.commentsBtn {
+    width: 80px;
+    color: rgb(236, 236, 83);
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 110px;
+}
+
+.info {
+    color: rgb(236, 236, 83);
+    object-position: 20% 0;
 }
 
 #NYCS_4_destination_sign {

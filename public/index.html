@@ -36,14 +36,20 @@
                     name="username"
                     placeholder="username"
                 />
-                <input
-                    @change="handleChange"
-                    type="file"
-                    name="file"
-                    accept="image/*"
-                />
-
-                <button @click.prevent="handleClick">Submit</button>
+                <div class="file-submit">
+                    <input
+                        @change="handleChange"
+                        type="file"
+                        name="file"
+                        accept="image/*"
+                        class="inputfile"
+                        id="file"
+                    />
+                    <label for="file" class="fileLabel">Choose a file</label>
+                    <div @click.prevent="handleClick" class="submit">
+                        Submit
+                    </div>
+                </div>
             </form>
 
             <!-- BOARD -->
@@ -55,32 +61,35 @@
 
                     <!--  @click=" clickOnImage(image.id)" -->
 
-                    <h4>{{image.title}}</h4>
+                    <p>{{image.title}}</p>
                 </div>
             </div>
 
             <!-- more -->
-            <div class="moreBtn">
-                <button v-if="!lastImg" @click="getMoreImages">MORE</button>
+
+            <div v-if="!lastImg" @click="getMoreImages" class="moreBtn">
+                MORE
             </div>
+
             <!-- more end -->
         </div>
 
         <!-- MODAL -->
         <script id="modal-image-template" type="text/x-template">
 
-            <div class="modal-container">
-                <h2 @click="notifyParentToDoSth" class= "x">close</h2>
-                <img :src="url">
+                        <div class="modal-container">
+                            <h2 @click="notifyParentToDoSth" class= "x">close</h2>
+                            <img :src="url">
 
-
-                <h5>{{description}}</h5>
-                <h5>{{title}}</h5>
-                <h5> uploaded by {{username}} at {{created_at}}</h5>
-               <modal-comments v-bind:image-id="imageId"></modal-comments>
-
-                </div>
+            <div class="info">
+                            {{title}}: {{description}}
+                            <br>
+                           uploaded by {{username}} at {{created_at}}
             </div>
+                           <modal-comments v-bind:image-id="imageId"></modal-comments>
+
+                            </div>
+                        </div>
         </script>
 
         <!-- COMMENTS -->
@@ -90,7 +99,7 @@
                     <h2>Add comment</h2>
                     <input v-model="username" type="text" name="username" placeholder="name">
                     <input v-model="comment" type="text" name="comment" placeholder="comment here">
-                    <button id="commentsBtn" @click.prevent="addComment">POST</button>
+                    <div class="commentsBtn" @click.prevent="addComment">POST</div>
 
                 <div id="commentsBoard" v-for="comment in comments" id="">
                     <h3>{{comment.username}}: {{comment.comment}} </h3>

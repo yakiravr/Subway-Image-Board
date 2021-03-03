@@ -74,8 +74,27 @@
                     });
                 })
                 .catch(function (err) {
-                    console.log("error in get comments:", err.message);
+                    console.log("error in get comments:", err);
                 });
+        },
+
+        watch: {
+            imageId: function () {
+                console.log("watch id");
+                var self = this;
+                axios
+                    .get("/get-comments/" + self.imageId)
+                    .then(function (response) {
+                        self.comments = response.data.sort((a, b) => {
+                            return (
+                                new Date(b.created_at) - new Date(a.created_at)
+                            );
+                        });
+                    })
+                    .catch(function (err) {
+                        console.log("error in get comments watch:", err);
+                    });
+            },
         },
         methods: {
             addComment: function () {
